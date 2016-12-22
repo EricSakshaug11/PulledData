@@ -1,0 +1,9 @@
+## Interface: 70100
+## Version: 0.1
+## Title: PulledData
+## Notes: Notifies you who pulled that boss (or whatever) and adds it to a lit of data
+## SavedVariables: WhoPulled_Settings, WhoPulled_RageList, WhoPulled_Ignored, WhoPulled_Ignore
+## Author: PuddlesRex
+
+PullData.lua
+PullData.xml
