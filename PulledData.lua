@@ -8,7 +8,7 @@ function PulledData_OnLoad(self)
 	self:RegisterEvent("PLAYER_LOGOUT");
 	hooksecurefunc("LeaveParty",WhoPulled_OnLeaveParty);
 	PulledData_Data = {}
-	PulledData_Count = 0;
+	PulledData_Count = 1; --Remember, LUA tables are one indexed!
 end
 
 function PulledData_ScanMembersSub(arg1)
