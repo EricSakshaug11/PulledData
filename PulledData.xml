@@ -1,6 +1,6 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="PullData.lua" /> 
-	<Frame name="PullData_MainFrame">
+	<Script file="PulledData.lua" /> 
+	<Frame name="PulledData_MainFrame">
 		<Scripts>
 			<OnLoad>
 				GrowlManager_OnLoad(self);
@@ -20,6 +20,8 @@
 				elseif(event == "PARTY_INVITE_REQUEST") then
 					local arg1=...;
 					PulledData_ScanMembersSub(arg1);
+				elseif(event == "PLAYER_LOGOUT") then
+					PulledData_ToFile();
 				end
 			</OnEvent>
 		</Scripts>

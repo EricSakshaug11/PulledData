@@ -5,41 +5,44 @@ function PulledData_OnLoad(self)
 	self:RegisterEvent("GROUP_ROSTER_UPDATE");
 	self:RegisterEvent("PARTY_INVITE_REQUEST");
 	self:RegisterEvent("RAID_INSTANCE_WELCOME");
+	self:RegisterEvent("PLAYER_LOGOUT");
 	hooksecurefunc("LeaveParty",WhoPulled_OnLeaveParty);
+	PulledData_Data = {}
+	PulledData_Count = 0;
 end
 
 function PulledData_ScanMembersSub(arg1)
-
+	
 end
 
 function PulledData_ScanForPets()
-
+	
 end
 
 function PulledData_ScanMembers()
-
+	
 end
 
 function PulledData_ScanForPets()
-
+	
 end
 
 function PulledData_ClearPulledList()
-
+	
 end
 
 function PulledData_World()
-
+	
 end
 
 function PulledData_CheckWho(...)
-
+	
 end
 
-function PulledData_AddEvent(class, level, location, server, pullType, race, faction, pullerDied, wiped)
-
+function PulledData_AddEvent(class, level, pullerLevel, location, server, pullType, race, faction, pullerDied, wiped)
+	
 end
 
-function PulledData_ToFile(data)
-
+function PulledData_ToFile()
+	
 end
