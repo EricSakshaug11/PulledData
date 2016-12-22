@@ -5,5 +5,5 @@
 ## SavedVariables: WhoPulled_Settings, WhoPulled_RageList, WhoPulled_Ignored, WhoPulled_Ignore
 ## Author: PuddlesRex
 
-PullData.lua
-PullData.xml
+PulledData.lua
+PulledData.xml
