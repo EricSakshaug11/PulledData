@@ -7,8 +7,9 @@ function PulledData_OnLoad(self)
 	self:RegisterEvent("RAID_INSTANCE_WELCOME");
 	self:RegisterEvent("PLAYER_LOGOUT");
 	hooksecurefunc("LeaveParty",WhoPulled_OnLeaveParty);
-	PulledData_Data = {}
-	PulledData_Count = 1; --Remember, LUA tables are one indexed!
+	PulledData_Data = {};
+	PulledData_Count = 1; --Remember, Lua tables are one indexed!
+	PulledData_PetsToMaster = {};
 end
 
 function PulledData_ScanMembersSub(arg1)
@@ -16,7 +17,39 @@ function PulledData_ScanMembersSub(arg1)
 end
 
 function PulledData_ScanForPets()
-	
+	if(UnitInRaid("player")) then
+		for i=1,39,1 do
+			if(UnitExists("raidpet"..i)) then
+				PulledData_PetsToMaster[UnitGUID("raidpet"..i)] = UnitName("raid"..i);
+			end
+		end
+	else
+		if(UnitExists("pet")) then WhoPulled_PetsToMaster[UnitGUID("pet")] = UnitName("player"); end
+		for i=1,4,1 do
+			if(UnitExists("partypet"..i)) then
+				PulledData_PetsToMaster[UnitGUID("partypet"..i)] = UnitName("party"..i);
+			end
+		end
+	end
+end
+
+function PulledData_GetPetOwner()
+	if(PulledData_PetsToMaster[pet]) then return PulledData_PetsToMaster[pet]; end
+	if(UnitInRaid("player")) then
+		for i=1,40,1 do
+			if(UnitGUID("raidpet"..i) == pet) then
+				return UnitName("raid"..i);
+			end
+		end
+	else
+		if(UnitGUID("pet") == pet) then return UnitName("player"); end
+		for i=1,5,1 do
+			if(UnitGUID("partypet"..i) == pet) then
+				return UnitName("party"..i);
+			end
+		end
+	end
+	return "Unknown";
 end
 
 function PulledData_ScanMembers()
