@@ -40,7 +40,10 @@ function PulledData_CheckWho(...)
 end
 
 function PulledData_AddEvent(class, level, pullerLevel, location, server, pullType, race, faction, pullerDied, wiped)
-	
+	PulledData_Data[PulledData_Count] = {
+		class, level, pullerLevel, location, server, pullType, race, faction, pullerDied, wiped
+	};
+	PulledData_Count = PulledData_Count + 1;
 end
 
 function PulledData_ToFile()
