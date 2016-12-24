@@ -176,22 +176,67 @@ function PulledData_ClearPulledList()
   
 end
 
+--CONVERT FROM WHOPULLED TO PULLEDDATA
 function PulledData_World()
-  if(UnitInRaid("player")) then
-    for i=1,39,1 do
-      if(UnitExists("raidpet"..i)) then
-        PulledData_PetsToMaster[UnitGUID("raidpet"..i)] = UnitName("raid"..i);
-      end
-    end
-  else
-    if(UnitExists("pet")) then PulledData_PetsToMaster[UnitGUID("pet")] = UnitName("player"); end
-    for i=1,4,1 do
-      if(UnitExists("partypet"..i)) then
-        PulledData_PetsToMaster[UnitGUID("partypet"..i)] = UnitName("party"..i);
-      end
-    end
-  end
+   local i,i2,found,v2,t,WhoPulled_variablesLoaded;
+        if(WhoPulled_variablesLoaded == nil) then
+            WhoPulled_variablesLoaded = false
+        end
+		if ( not WhoPulled_variablesLoaded ) then
+			if(WhoPulled_Ignore ~= nil) then
+				t = WhoPulled_Ignore;
+				found = 1
+				for i2,v2 in pairs(t) do
+					found = 1
+					for i=1, #WhoPulled_Ignored do
+						if WhoPulled_Ignored[i] == i2 then found = 2 
+						end
+					end
+					if found == 1 then
+						tinsert(WhoPulled_Ignored, i2)
+					end
+				end
+			end
+			found = 1 -- Healing Stream, Flametongue, and Bloodworms mandatory ignore(qod)
+			for i=1, #WhoPulled_Ignored do
+				if WhoPulled_Ignored[i] == "Healing Stream Totem" then found = 2
+				end
+			end
+			if found == 1 then
+				tinsert(WhoPulled_Ignored, "Healing Stream Totem")
+			end
+			found = 1
+			for i=1, #WhoPulled_Ignored do
+				if WhoPulled_Ignored[i] == "Bloodworm" then found = 2
+				end
+			end
+			if found == 1 then
+				tinsert(WhoPulled_Ignored, "Bloodworm")
+			end
+			found = 1
+			for i=1, #WhoPulled_Ignored do
+				if WhoPulled_Ignored[i] == "Flametongue Totem" then found = 2
+				end
+			end
+			if found == 1 then
+				tinsert(WhoPulled_Ignored, "Flametongue Totem")
+			end -- end of mandatory ignore items
+			wipe(WhoPulled_Ignore)
+			table.sort(WhoPulled_Ignored)
+			WhoPulled_variablesLoaded = true
+		end
+	local text
+	for i=1, #WhoPulled_Ignored do
+		if not text then
+			text = WhoPulled_Ignored[i]
+		else
+			text = text.."\n"..WhoPulled_Ignored[i]
+		end
+	end
+	WPIgnoreEditBox:SetText(text or "")
+
 end
+
 
 function PulledData_CheckWho(...)
   local time,event,hidecaster,sguid,sname,sflags,sraidflags,dguid,dname,dflags,draidflags,arg1,arg2,arg3,itype;
