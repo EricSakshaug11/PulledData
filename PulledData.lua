@@ -1,5 +1,5 @@
 --This code is based on the addon "Who Pulled?" by Aierre, and qod
---And by "based on, I mean I copied and pasted several of their
+--And by "based on", I mean I copied and pasted several of their
 --functions. It's a pretty cool addon, you should check it out.
 
 function PulledData_OnLoad(self)
@@ -15,15 +15,15 @@ function PulledData_OnLoad(self)
   PulledData_Count = 1; --Remember, Lua tables are one indexed!
   PulledData_PetsToMaster = {};
 end
-
-function PulledData_ScanMembersSub(arg)
+--I don't think that this one is needed by my addon, I'll just comment it out.
+--[[function PulledData_ScanMembersSub(arg)
   local PulledData_name,PulledData_Server;
-  wpname,wpserv = WhoPulled_GetNameServ(arg);
-  if(wpname and WhoPulled_RageList[wpserv] and WhoPulled_RageList[wpserv][wpname] and not WhoPulled_NotifiedOf[wpname.."-"..wpserv]) then
-    DEFAULT_CHAT_FRAME:AddMessage(wpname.." who pulled "..WhoPulled_RageList[wpserv][wpname].." against your team is in this team!");
-    WhoPulled_NotifiedOf[wpname.."-"..wpserv] = true;
+  wpname,wpserv = PulledData_GetNameServ(arg);
+  if(wpname and PulledData_RageList[wpserv] and WhoPulled_RageList[wpserv][wpname] and not PulledData_NotifiedOf[wpname.."-"..wpserv]) then
+    DEFAULT_CHAT_FRAME:AddMessage(wpname.." who pulled "..PulledData_RageList[wpserv][wpname].." against your team is in this team!");
+    PulledData_NotifiedOf[wpname.."-"..wpserv] = true;
   end
-end
+   end]]--
 
 function PulledData_ScanForPets()
   if(UnitInRaid("player")) then
