@@ -1,29 +1,36 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="PulledData.lua" /> 
-	<Frame name="PulledData_MainFrame">
-		<Scripts>
-			<OnLoad>
-				GrowlManager_OnLoad(self);
-			</OnLoad>
-			<OnEvent>
-				if(event == "COMBAT_LOG_EVENT_UNFILTERED") then
-					PulledData_CheckWho(...);
-				elseif(event == "PLAYER_ENTERING_WORLD") then
-					PulledData_World();
-				elseif(event == "PLAYER_REGEN_ENABLED") then
-					PulledData_ClearPulledList();
-				elseif(event == "GROUP_ROSTER_UPDATE") then
-					PulledData_ScanForPets();
-					PulledData_ScanMembers();
-				elseif(event == "RAID_INSTANCE_WELCOME") then
-					PulledData_ScanForPets();
-				elseif(event == "PARTY_INVITE_REQUEST") then
-					local arg1=...;
-					PulledData_ScanMembersSub(arg1);
-				elseif(event == "PLAYER_LOGOUT") then
-					PulledData_ToFile();
-				end
-			</OnEvent>
-		</Scripts>
-	</Frame>
+  <Script file="PulledData.lua" /> 
+  <Frame name="PulledData_MainFrame">
+    <Scripts>
+      <OnLoad>
+        self:RegisterEvent("PLAYER_ENTERING_WORLD");
+        self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+        self:RegisterEvent("PLAYER_REGEN_ENABLED");
+        self:RegisterEvent("GROUP_ROSTER_UPDATE");
+        self:RegisterEvent("PARTY_INVITE_REQUEST");
+        self:RegisterEvent("RAID_INSTANCE_WELCOME");
+                                self:RegisterEvent("PLAYER_LOGOUT");
+        hooksecurefunc("LeaveParty",WhoPulled_OnLeaveParty);
+      </OnLoad>
+      <OnEvent>
+        if(event == "COMBAT_LOG_EVENT_UNFILTERED") then
+          PulledData_CheckWho(...);
+        elseif(event == "PLAYER_ENTERING_WORLD") then
+          PulledData_World();
+        elseif(event == "PLAYER_REGEN_ENABLED") then
+          PulledData_ClearPulledList();
+        elseif(event == "GROUP_ROSTER_UPDATE") then
+          PulledData_ScanForPets();
+          PulledData_ScanMembers();
+        elseif(event == "RAID_INSTANCE_WELCOME") then
+          PulledData_ScanForPets();
+        elseif(event == "PARTY_INVITE_REQUEST") then
+          local arg1=...;
+          PulledData_ScanMembersSub(arg1);
+        elseif(event == "PLAYER_LOGOUT") then
+          PulledData_ToFile();
+        end
+      </OnEvent>
+    </Scripts>
+  </Frame>
 </Ui>
