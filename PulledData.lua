@@ -25,6 +25,7 @@ end
   end
    end]]--
 
+--Matches pets to their owners. It's not the pets' fault, it's the owner's.
 function PulledData_ScanForPets()
   if(UnitInRaid("player")) then
     for i=1,39,1 do
@@ -42,6 +43,7 @@ function PulledData_ScanForPets()
   end
 end
 
+--Returns true if "spell" is a spell that is listed to be ignored. 
 function PulledData_IgnoredSpell(spell)
   if(spell == "Hunter's Mark" or spell == "Sap" or spell == "Soothe" or spell == "Polymorph" or spell == "Hex") then
     return true;
@@ -49,7 +51,8 @@ function PulledData_IgnoredSpell(spell)
   return false;
 end
 
-function PulledData_GetPetOwner()
+--
+function PulledData_GetPetOwner(pet)
   if(PulledData_PetsToMaster[pet]) then return PulledData_PetsToMaster[pet]; end
   if(UnitInRaid("player")) then
     for i=1,40,1 do
